@@ -1,0 +1,10 @@
+{
+  "generation_version":1,
+  "map_policy":{"reuse_emerald_city_layouts":false,"reuse_emerald_city_names":false,"reuse_emerald_story_npcs":false,"custom_tilesets_required":true},
+  "city_map_specs":[
+    ["Lunaris",30,26,"moonlit_meadow"],["Brisavale",34,28,"wind_plains"],["Verdelume",42,36,"deep_grove"],["Rochedor",32,30,"granite_hills"],["Cineris",44,36,"ashlands"],["Marivela",48,38,"coast"],["Azuriax",46,40,"reef_coast"],["Solmira",34,30,"sun_fields"],["Ferrolis",48,40,"industrial"],["Nimbora",34,32,"cloud_highlands"],["Voltrium",50,42,"storm_city"],["Floravie",36,32,"flower_valley"],["Nocturna",46,40,"twilight_forest"],["Cristalva",36,34,"crystal_caves"],["Glacielle",48,42,"snowfield"],["Terracora",38,34,"red_canyon"],["Drakoria",52,44,"dragon_cliffs"],["Serenova",44,38,"lake_district"],["Miragia",38,34,"mirage_desert"],["Psylune",50,42,"astral_plateau"],["Coralys",40,36,"archipelago"],["Venombra",48,42,"toxic_marsh"],["Altavera",38,34,"sky_terraces"],["Ferralume",50,42,"metal_mines"],["Bosquera",40,36,"ancient_forest"],["Spectria",50,42,"haunted_basin"],["Dunavera",38,34,"dunes"],["Aeralis",52,44,"wind_spires"],["Rubravia",40,36,"scarlet_savanna"],["Lumecia",56,46,"neon_metropolis"],["Umbravale",42,36,"eclipse_valley"],["Orichal",52,44,"ancient_ruins"],["Celestara",58,48,"star_summit"],["Coroa_Astral",60,50,"sacred_peak"]
+  ],
+  "required_city_features":["unique silhouette","Pokemon Center equivalent","shop equivalent","residential interiors","story NPC set","city landmark","route entrances","fly destination"],
+  "gym_city_features":["fully original gym exterior","fully original gym interior puzzle","leader room","badge script","rematch hook"],
+  "next_generation_targets":["route network","custom blockdata","custom tilesets","city interiors","gym interiors","NPC object events","story scripts","wild encounters"]
+}
