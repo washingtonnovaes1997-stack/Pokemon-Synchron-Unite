@@ -30,6 +30,9 @@ jobs:
       - name: Generate physical map blueprints
         run: python3 tools/generate_maps.py
 
+      - name: Generate original NPC and story event plans
+        run: python3 tools/generate_events.py
+
       - name: Validate custom project
         run: python3 tools/validate_project.py
 
@@ -66,6 +69,9 @@ jobs:
           cp generated/world_summary.txt dist/world_summary.txt
           cp generated/maps/map_build_index.json dist/map_build_index.json
           cp generated/maps/interiors.json dist/interiors.json
+          cp generated/events/city_npc_events.json dist/city_npc_events.json
+          cp generated/events/key_character_events.json dist/key_character_events.json
+          cp generated/events/story_hooks.json dist/story_hooks.json
           cp generated/native_integration.json dist/native_integration.json
           cp game/assets/tileset_manifest.json dist/tileset_manifest.json
 
@@ -80,6 +86,9 @@ jobs:
             dist/world_summary.txt
             dist/map_build_index.json
             dist/interiors.json
+            dist/city_npc_events.json
+            dist/key_character_events.json
+            dist/story_hooks.json
             dist/native_integration.json
             dist/tileset_manifest.json
           if-no-files-found: error
