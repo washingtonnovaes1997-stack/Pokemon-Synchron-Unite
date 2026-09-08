@@ -6,6 +6,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: synchron-unite-rom-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -27,6 +31,14 @@ jobs:
             libpng-dev \
             python3
 
+      - name: Generate Aurelis world data
+        run: |
+          python3 tools/generate_world.py
+
+      - name: Validate custom project
+        run: |
+          python3 tools/validate_project.py
+
       - name: Fetch pinned pokeemerald-expansion engine
         run: |
           mkdir engine
@@ -35,24 +47,22 @@ jobs:
           git -C engine fetch --depth 1 origin cafe0221cefb2a991cc0ece429174ade877d037d
           git -C engine checkout --detach FETCH_HEAD
 
-      - name: Apply custom game overlay
+      - name: Apply generated custom game overlay
         run: |
           python3 tools/apply_overlay.py --project . --engine engine
-
-      - name: Validate custom project
-        run: |
-          python3 tools/validate_project.py
 
       - name: Build ROM
         working-directory: engine
         run: |
           make -j"$(nproc)"
 
-      - name: Collect ROM
+      - name: Collect ROM and build metadata
         run: |
           mkdir -p dist
           cp engine/pokeemerald.gba dist/Pokemon-Synchron-Unite.gba
           sha256sum dist/Pokemon-Synchron-Unite.gba > dist/Pokemon-Synchron-Unite.sha256
+          cp generated/world_index.json dist/world_index.json
+          cp generated/world_summary.txt dist/world_summary.txt
 
       - name: Upload ROM artifact
         uses: actions/upload-artifact@v4
@@ -61,5 +71,7 @@ jobs:
           path: |
             dist/Pokemon-Synchron-Unite.gba
             dist/Pokemon-Synchron-Unite.sha256
+            dist/world_index.json
+            dist/world_summary.txt
           if-no-files-found: error
           retention-days: 30
