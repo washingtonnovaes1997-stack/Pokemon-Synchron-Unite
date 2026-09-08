@@ -1,0 +1,24 @@
+{
+  "status": "in_progress",
+  "release_gate": "No public-facing Aurelis map may ship with inherited Emerald exterior graphics.",
+  "master_tileset": {
+    "name": "SynchronMasterExterior",
+    "primary": true,
+    "required_assets": ["tiles.png","palettes/00.pal","palettes/01.pal","palettes/02.pal","palettes/03.pal","palettes/04.pal","palettes/05.pal","palettes/06.pal","palettes/07.pal","metatiles.bin","metatile_attributes.bin"],
+    "families": ["grass","trees","water","paths","cliffs","fences","signage","bridges","generic_building_shells"]
+  },
+  "regional_secondary": {
+    "name": "AurelisArchitecture",
+    "primary": false,
+    "families": ["houses","pokemon_center_equivalent","shop_equivalent","gym_shells","lamps","monuments","industrial","coastal","ruins","snow","desert","neon","sacred_peak"]
+  },
+  "character_graphics": {
+    "policy": "Do not enable story NPC object events until original overworld sprites are present.",
+    "required": ["Aren","Lyra","Nox","Mirae","Tavian","Professor_Elian","Cassian_Veyr","Selka","Rovan","Iria","Mordren","16_gym_leaders","league_council","Seraphine","city_npc_base_sets"]
+  },
+  "development_fallback": {
+    "enabled": true,
+    "purpose": "Compile and verify native map registration only.",
+    "must_be_disabled_before_visual_milestone": true
+  }
+}
