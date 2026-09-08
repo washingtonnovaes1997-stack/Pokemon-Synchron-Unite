@@ -27,9 +27,13 @@ jobs:
             libpng-dev \
             python3
 
-      - name: Fetch pokeemerald-expansion engine
+      - name: Fetch pinned pokeemerald-expansion engine
         run: |
-          git clone --depth 1 https://github.com/rh-hideout/pokeemerald-expansion.git engine
+          mkdir engine
+          git -C engine init
+          git -C engine remote add origin https://github.com/rh-hideout/pokeemerald-expansion.git
+          git -C engine fetch --depth 1 origin cafe0221cefb2a991cc0ece429174ade877d037d
+          git -C engine checkout --detach FETCH_HEAD
 
       - name: Apply custom game overlay
         run: |
