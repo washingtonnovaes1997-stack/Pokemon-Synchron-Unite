@@ -1,0 +1,61 @@
+name: Build ROM
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout game project
+        uses: actions/checkout@v4
+
+      - name: Install ARM build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            binutils-arm-none-eabi \
+            gcc-arm-none-eabi \
+            libnewlib-arm-none-eabi \
+            git \
+            libpng-dev \
+            python3
+
+      - name: Fetch pokeemerald-expansion engine
+        run: |
+          git clone --depth 1 https://github.com/rh-hideout/pokeemerald-expansion.git engine
+
+      - name: Apply custom game overlay
+        run: |
+          python3 tools/apply_overlay.py --project . --engine engine
+
+      - name: Validate custom project
+        run: |
+          python3 tools/validate_project.py
+
+      - name: Build ROM
+        working-directory: engine
+        run: |
+          make -j"$(nproc)"
+
+      - name: Collect ROM
+        run: |
+          mkdir -p dist
+          cp engine/pokeemerald.gba dist/Pokemon-Synchron-Unite.gba
+          sha256sum dist/Pokemon-Synchron-Unite.gba > dist/Pokemon-Synchron-Unite.sha256
+
+      - name: Upload ROM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pokemon-Synchron-Unite-ROM
+          path: |
+            dist/Pokemon-Synchron-Unite.gba
+            dist/Pokemon-Synchron-Unite.sha256
+          if-no-files-found: error
+          retention-days: 30
