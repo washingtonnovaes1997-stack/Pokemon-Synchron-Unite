@@ -47,6 +47,9 @@ jobs:
       - name: Integrate Aurelis as native engine maps
         run: python3 tools/integrate_native_maps.py --project . --engine engine
 
+      - name: Validate native engine integration
+        run: python3 tools/validate_native_engine.py --engine engine
+
       - name: Apply generated custom game overlay
         run: python3 tools/apply_overlay.py --project . --engine engine
 
