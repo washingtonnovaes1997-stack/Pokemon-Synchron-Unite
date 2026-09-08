@@ -1,0 +1,14 @@
+{
+  "title":"Pokemon Synchron Unite",
+  "core_mystery":"Aurelis contains ancient Resonance Nodes that react to Pokemon emotions. Team Vesper believes linking every node will end conflict by eliminating unpredictable bonds; the heroes discover the network would instead erase individual will.",
+  "acts":[
+    {"act":1,"name":"First Signal","cities":"C01-C05","gyms":"1-2","beats":["Professor Elian detects an impossible resonance pulse near Lunaris.","The three rivals leave on different missions.","Team Vesper steals a node fragment after Gym 2."]},
+    {"act":2,"name":"Coastal Circuit","cities":"C06-C11","gyms":"3-5","beats":["Ports report synchronized wild Pokemon migrations.","The player discovers Vesper relay towers hidden among public infrastructure.","Cassian Veyr publicly presents Vesper as a humanitarian research group."]},
+    {"act":3,"name":"Veil of Aurelis","cities":"C12-C17","gyms":"6-8","beats":["Ancient records reveal sixteen guardians once kept the Resonance Lattice separated.","Vesper captures three active nodes.","The eighth badge ends the first championship circuit but not the journey."]},
+    {"act":4,"name":"Second Circuit","cities":"C18-C23","gyms":"9-10","beats":["A new league circuit opens after the crisis spreads north.","The player learns the node system predates modern Aurelis.","One rival temporarily cooperates with Vesper for personal reasons before rejecting its methods."]},
+    {"act":5,"name":"Fractured Sky","cities":"C24-C29","gyms":"11-13","beats":["Weather and migration patterns destabilize across the region.","The four Vesper admins control separate relay sectors.","The protagonists reunite the rival group for a coordinated counterattack."]},
+    {"act":6,"name":"Synchron Divide","cities":"C30-C33","gyms":"14-16","beats":["Cassian activates the partial Lattice.","Cities experience temporary forced synchronization events.","The final three leaders guard keys required to enter the original core beneath Celestara."]},
+    {"act":7,"name":"Coroa Astral","cities":"C34","gyms":"league","beats":["Team Vesper is confronted at the Resonance Core.","The player chooses Pokemon bonds freely rather than through forced synchronization.","After the crisis, the sixteen-badge League challenge culminates with the Council and Champion Seraphine."]}
+  ],
+  "postgame":["Restoration quests in all 34 cities","Rematches with all 16 leaders","Rival championship tournament","Hidden resonance sanctuaries","Team Vesper aftermath questline"]
+}
