@@ -44,6 +44,9 @@ jobs:
           git -C engine fetch --depth 1 origin cafe0221cefb2a991cc0ece429174ade877d037d
           git -C engine checkout --detach FETCH_HEAD
 
+      - name: Integrate Aurelis as native engine maps
+        run: python3 tools/integrate_native_maps.py --project . --engine engine
+
       - name: Apply generated custom game overlay
         run: python3 tools/apply_overlay.py --project . --engine engine
 
@@ -60,6 +63,8 @@ jobs:
           cp generated/world_summary.txt dist/world_summary.txt
           cp generated/maps/map_build_index.json dist/map_build_index.json
           cp generated/maps/interiors.json dist/interiors.json
+          cp generated/native_integration.json dist/native_integration.json
+          cp game/assets/tileset_manifest.json dist/tileset_manifest.json
 
       - name: Upload ROM artifact
         uses: actions/upload-artifact@v4
@@ -72,5 +77,7 @@ jobs:
             dist/world_summary.txt
             dist/map_build_index.json
             dist/interiors.json
+            dist/native_integration.json
+            dist/tileset_manifest.json
           if-no-files-found: error
           retention-days: 30
