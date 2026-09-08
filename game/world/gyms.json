@@ -1,0 +1,22 @@
+{
+  "format":"sixteen_original_gyms",
+  "rules":["No Emerald gym names, leaders, puzzles, scripts or map identities may be reused.","Every gym has a unique visual theme, puzzle mechanic and leader personality.","Teams are progression targets and can be tuned after playtesting."],
+  "gyms":[
+    {"number":1,"city":"Verdelume","leader":"Maelis","type":"GRASS","level_cap":14,"puzzle":"rotate living hedges to redirect sunlight into three seed altars","ace":"Ivysaur","team":["Budew","Deerling","Ivysaur"],"arena":"glass-roof botanical sanctuary"},
+    {"number":2,"city":"Cineris","leader":"Kael","type":"FIRE","level_cap":18,"puzzle":"regulate furnace pressure by opening vents in the correct heat sequence","ace":"Charcadet","team":["Growlithe","Litleo","Charcadet"],"arena":"blackstone geothermal foundry"},
+    {"number":3,"city":"Azuriax","leader":"Neria","type":"WATER","level_cap":22,"puzzle":"change tide gates to raise and lower walkable reef platforms","ace":"Wartortle","team":["Wingull","Finizen","Wartortle"],"arena":"open-air coral observatory"},
+    {"number":4,"city":"Ferrolis","leader":"Bram","type":"STEEL","level_cap":26,"puzzle":"assemble magnetic rail bridges by switching polarity nodes","ace":"Tinkatuff","team":["Magnemite","Pawniard","Tinkatuff"],"arena":"industrial magnetic forge"},
+    {"number":5,"city":"Voltrium","leader":"Zaya","type":"ELECTRIC","level_cap":30,"puzzle":"complete live circuits while storm pulses periodically reset inactive nodes","ace":"Kilowattrel","team":["Flaaffy","Toxel","Kilowattrel"],"arena":"lightning capture tower"},
+    {"number":6,"city":"Nocturna","leader":"Ilyra","type":"DARK","level_cap":34,"puzzle":"navigate shadow corridors where lamps reveal hidden doors but close other paths","ace":"Mabosstiff","team":["Murkrow","Sneasel","Mabosstiff"],"arena":"twilight theater of mirrors"},
+    {"number":7,"city":"Glacielle","leader":"Eiran","type":"ICE","level_cap":38,"puzzle":"redirect frozen wind to slide crystal blocks into thermal locks","ace":"Frosmoth","team":["Snover","Cetoddle","Frosmoth"],"arena":"aurora ice cathedral"},
+    {"number":8,"city":"Drakoria","leader":"Varek","type":"DRAGON","level_cap":42,"puzzle":"activate four dragon runes by completing elevation trials across cliff platforms","ace":"Haxorus","team":["Gabite","Drakloak","Haxorus"],"arena":"clifftop dragon amphitheater"},
+    {"number":9,"city":"Psylune","leader":"Sorel","type":"PSYCHIC","level_cap":46,"puzzle":"rotate gravity rooms and predict mirrored teleport destinations","ace":"Farigiraf","team":["Espathra","Metang","Farigiraf"],"arena":"astral lens chamber"},
+    {"number":10,"city":"Venombra","leader":"Tessa","type":"POISON","level_cap":50,"puzzle":"mix safe antidote compounds to cross toxic greenhouse sectors","ace":"Clodsire","team":["Skuntank","Grafaiai","Clodsire"],"arena":"bioluminescent marsh laboratory"},
+    {"number":11,"city":"Ferralume","leader":"Orven","type":"ROCK","level_cap":54,"puzzle":"operate mining lifts and controlled rockfalls to open alternate shafts","ace":"Garganacl","team":["Lycanroc","Coalossal","Garganacl"],"arena":"deep geode quarry"},
+    {"number":12,"city":"Spectria","leader":"Nyelle","type":"GHOST","level_cap":58,"puzzle":"follow sound echoes through rooms whose doors disappear when directly observed","ace":"Ceruledge","team":["Mismagius","Houndstone","Ceruledge"],"arena":"abandoned resonance opera house"},
+    {"number":13,"city":"Aeralis","leader":"Ciro","type":"FLYING","level_cap":61,"puzzle":"use directional wind cannons and sail platforms between suspended towers","ace":"Corviknight","team":["Noivern","Talonflame","Corviknight"],"arena":"skyborne wind citadel"},
+    {"number":14,"city":"Lumecia","leader":"Liora","type":"FAIRY","level_cap":64,"puzzle":"reconstruct luminous street murals by matching color-symbol constellations","ace":"Tinkaton","team":["Sylveon","Hatterene","Tinkaton"],"arena":"neon prism boulevard"},
+    {"number":15,"city":"Orichal","leader":"Darian","type":"GROUND","level_cap":67,"puzzle":"rotate ancient ruin rings to reroute sand streams and expose buried passages","ace":"Great Tusk","team":["Krookodile","Excadrill","Great Tusk"],"arena":"sunken orichalcum temple"},
+    {"number":16,"city":"Celestara","leader":"Astra","type":"FIGHTING","level_cap":70,"puzzle":"complete four discipline trials focused on timing, observation, navigation and trainer battles","ace":"Annihilape","team":["Hawlucha","Lucario","Kommo-o","Annihilape"],"arena":"summit monastery above the clouds"}
+  ]
+}
