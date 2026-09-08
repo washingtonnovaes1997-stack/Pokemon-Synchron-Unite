@@ -22,22 +22,19 @@ jobs:
       - name: Install ARM build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            binutils-arm-none-eabi \
-            gcc-arm-none-eabi \
-            libnewlib-arm-none-eabi \
-            git \
-            libpng-dev \
-            python3
+          sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi git libpng-dev python3
 
       - name: Generate Aurelis world data
-        run: |
-          python3 tools/generate_world.py
+        run: python3 tools/generate_world.py
+
+      - name: Generate physical map blueprints
+        run: python3 tools/generate_maps.py
 
       - name: Validate custom project
-        run: |
-          python3 tools/validate_project.py
+        run: python3 tools/validate_project.py
+
+      - name: Validate physical maps
+        run: python3 tools/validate_maps.py
 
       - name: Fetch pinned pokeemerald-expansion engine
         run: |
@@ -48,13 +45,11 @@ jobs:
           git -C engine checkout --detach FETCH_HEAD
 
       - name: Apply generated custom game overlay
-        run: |
-          python3 tools/apply_overlay.py --project . --engine engine
+        run: python3 tools/apply_overlay.py --project . --engine engine
 
       - name: Build ROM
         working-directory: engine
-        run: |
-          make -j"$(nproc)"
+        run: make -j"$(nproc)"
 
       - name: Collect ROM and build metadata
         run: |
@@ -63,6 +58,8 @@ jobs:
           sha256sum dist/Pokemon-Synchron-Unite.gba > dist/Pokemon-Synchron-Unite.sha256
           cp generated/world_index.json dist/world_index.json
           cp generated/world_summary.txt dist/world_summary.txt
+          cp generated/maps/map_build_index.json dist/map_build_index.json
+          cp generated/maps/interiors.json dist/interiors.json
 
       - name: Upload ROM artifact
         uses: actions/upload-artifact@v4
@@ -73,5 +70,7 @@ jobs:
             dist/Pokemon-Synchron-Unite.sha256
             dist/world_index.json
             dist/world_summary.txt
+            dist/map_build_index.json
+            dist/interiors.json
           if-no-files-found: error
           retention-days: 30
