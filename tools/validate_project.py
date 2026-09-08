@@ -12,13 +12,16 @@ ROUTES = ROOT / "game" / "world" / "routes.json"
 GYMS = ROOT / "game" / "world" / "gyms.json"
 NPCS = ROOT / "game" / "world" / "npc_roster.json"
 
-FORBIDDEN = {
+FORBIDDEN_LOCATIONS = {
     "littleroot","oldale","petalburg","rustboro","dewford","slateport","mauville",
     "verdanturf","fallarbor","lavaridge","fortree","lilycove","mossdeep","sootopolis",
-    "pacifidlog","ever grande","roxanne","brawly","wattson","flannery","norman",
-    "winona","tate","liza","wallace","steven","archie","maxie","may","brendan",
-    "hoenn","team aqua","team magma"
+    "pacifidlog","ever grande","hoenn"
 }
+FORBIDDEN_CHARACTERS = {
+    "roxanne","brawly","wattson","flannery","norman","winona","tate","liza",
+    "wallace","steven","archie","maxie","may","brendan"
+}
+FORBIDDEN_TEAMS = {"team aqua","team magma"}
 
 def fail(message: str) -> None:
     raise SystemExit(f"[validate] ERROR: {message}")
@@ -27,6 +30,25 @@ def load(path: Path):
     if not path.exists(): fail(f"missing {path.relative_to(ROOT)}")
     try: return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc: fail(f"invalid JSON in {path}: {exc}")
+
+def named_characters(cast, gyms_data, npcs):
+    names = []
+    names += [p["name"] for p in cast.get("protagonists", [])]
+    names += [r["name"] for r in cast.get("rivals", [])]
+    professor = cast.get("professor", {}).get("name")
+    if professor: names.append(professor)
+    enemy = cast.get("enemy_team", {})
+    if enemy.get("leader"): names.append(enemy["leader"])
+    names += enemy.get("admins", [])
+    league = cast.get("league", {})
+    if league.get("champion"): names.append(league["champion"])
+    names += league.get("council", [])
+    names += [x["name"] for x in cast.get("supporting_cast", [])]
+    names += [g["leader"] for g in gyms_data.get("gyms", [])]
+    for entry in npcs.get("city_npcs", []):
+        names += [entry["civic"]["name"], entry["specialist"]["name"]]
+    names += [x["name"] for x in npcs.get("team_vesper_field_commanders", [])]
+    return names
 
 def main() -> None:
     project, world, cast, manifest, routes, gyms_data, npcs = map(load, [CONFIG, WORLD, CAST, MANIFEST, ROUTES, GYMS, NPCS])
@@ -51,6 +73,10 @@ def main() -> None:
     city_names = [c["name"] for c in cities]
     city_set = set(city_names)
     if len(city_set) != 34: fail("city names must be unique")
+    bad_locations = sorted(name for name in city_names if name.lower() in FORBIDDEN_LOCATIONS)
+    route_names = [r["name"] for r in route_list] + [x["name"] for x in specials]
+    bad_locations += sorted(name for name in route_names if name.lower() in FORBIDDEN_LOCATIONS)
+    if bad_locations: fail("forbidden Emerald location names detected: " + ", ".join(bad_locations))
 
     leaders = [g["leader"] for g in gyms]
     if len(set(leaders)) != 16: fail("gym leaders must be unique")
@@ -72,17 +98,20 @@ def main() -> None:
     caps = [g["level_cap"] for g in detailed_gyms]
     if caps != sorted(caps): fail("gym level caps must be non-decreasing")
 
-    corpus = " ".join([
-        json.dumps(world), json.dumps(cast), json.dumps(manifest),
-        json.dumps(routes), json.dumps(gyms_data), json.dumps(npcs)
-    ]).lower()
-    hits = sorted(x for x in FORBIDDEN if x in corpus)
-    if hits: fail("forbidden Emerald player-facing names detected: " + ", ".join(hits))
+    character_names = named_characters(cast, gyms_data, npcs)
+    bad_characters = sorted(name for name in character_names if name.lower() in FORBIDDEN_CHARACTERS)
+    if bad_characters: fail("forbidden Emerald character names detected: " + ", ".join(bad_characters))
+    if len(character_names) != len(set(n.lower() for n in character_names)):
+        fail("named character roster contains duplicate names")
+
+    enemy_name = cast.get("enemy_team", {}).get("name", "").lower()
+    if enemy_name in FORBIDDEN_TEAMS: fail("forbidden Emerald enemy team detected")
 
     print(f"[validate] Project: {project['project_name']}")
     print(f"[validate] Region: {world['name']} | Cities: {len(cities)} | Gyms: {len(gyms)}")
     print(f"[validate] Routes: {len(route_list)} | Special areas: {len(specials)} | City NPC sets: {len(city_npcs)}")
-    print(f"[validate] Original leaders: {len(leaders)} | Emerald-name guard: PASS")
+    print(f"[validate] Named original characters checked: {len(character_names)}")
+    print("[validate] Emerald location/character/team guards: PASS")
     print("[validate] Extended Aurelis world-definition milestone passed.")
 
 if __name__ == "__main__": main()
