@@ -1,0 +1,40 @@
+name: Build TVBrasil APK
+
+on:
+  push:
+    branches: [ tvbrasil-apk-build ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct source
+        shell: bash
+        run: |
+          cat tvbuild/part_00.b64 tvbuild/part_01.b64 tvbuild/part_02.b64 tvbuild/part_03.b64 | base64 -d > source.tar.gz
+          cat tvbuild/part_04.bin tvbuild/part_05.bin tvbuild/part_06.bin tvbuild/part_07.bin >> source.tar.gz
+          mkdir appsrc
+          tar -xzf source.tar.gz -C appsrc
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build debug APK
+        working-directory: appsrc
+        run: gradle :app:assembleDebug --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TVBrasilPlus-2.1-debug
+          path: appsrc/app/build/outputs/apk/debug/app-debug.apk
