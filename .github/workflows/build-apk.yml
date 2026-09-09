@@ -14,12 +14,19 @@ jobs:
       - name: Reconstruct source
         shell: bash
         run: |
-          : > source.tar.gz
-          base64 -d tvbuild/part_00.b64 >> source.tar.gz
-          base64 -d tvbuild/part_01.b64 >> source.tar.gz
-          base64 -d tvbuild/part_02.b64 >> source.tar.gz
-          base64 -d tvbuild/part_03.b64 >> source.tar.gz
-          cat tvbuild/part_04.bin tvbuild/part_05.bin tvbuild/part_06.bin tvbuild/part_07.bin >> source.tar.gz
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          out = bytearray()
+          for i in range(4):
+              s = Path(f'tvbuild/part_{i:02d}.b64').read_text(encoding='utf-8')
+              clean = ''.join(c for c in s if c.isalnum() or c in '+/=')
+              out.extend(base64.b64decode(clean, validate=False))
+          for i in range(4, 8):
+              out.extend(Path(f'tvbuild/part_{i:02d}.bin').read_bytes())
+          Path('source.tar.gz').write_bytes(out)
+          print('source bytes:', len(out))
+          PY
           mkdir appsrc
           tar -xzf source.tar.gz -C appsrc
 
